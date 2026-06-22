@@ -86,22 +86,78 @@ class TuringMachine(object):
 beaver_programs = [
     { },
     {
-        # TODO: Implement 1-state Busy Beaver program
+        'a0': ('h', '1', 'r'),
+        'a1': ('h', '1', 'r'),
+
     },
     {
-        # TODO: Implement 2-state Busy Beaver program
+
+        'a0': ('b', '1', 'r'),
+        'a1': ('b', '1', 'l'),
+        'b0': ('a', '1', 'l'),
+        'b1': ('h', '1', 'r')
+
     },
     {
-        # TODO: Implement 3-state Busy Beaver program
+        'a0': ('b', '1', 'r'),
+        'a1': ('h', '1', 'r'),
+
+        'b0': ('c', '0', 'r'),
+        'b1': ('b', '1', 'r'),
+
+        'c0': ('c', '1', 'l'),
+        'c1': ('a', '1', 'l'),
     },
     {
-        # TODO: Implement 4-state Busy Beaver program
+
+        'a0': ('b', '1', 'r'),
+        'a1': ('b', '1', 'l'),
+
+        'b0': ('a', '1', 'l'),
+        'b1': ('c', '0', 'l'),
+
+        'c0': ('h', '1', 'r'),
+        'c1': ('d', '1', 'l'),
+
+        'd0': ('d', '1', 'r'),
+        'd1': ('a', '0', 'r'),
+
     },
     {
-        # TODO: Implement 5-state Busy Beaver program
+        'a0': ('b', '1', 'r'),
+        'a1': ('c', '1', 'l'),
+
+        'b0': ('c', '1', 'r'),
+        'b1': ('b', '1', 'r'),
+
+        'c0': ('d', '1', 'r'),
+        'c1': ('e', '0', 'l'),
+
+        'd0': ('a', '1', 'l'),
+        'd1': ('d', '1', 'l'),
+
+        'e0': ('h', '1', 'r'),
+        'e1': ('a', '0', 'l'),
     },
     {
-        # TODO: Implement 6-state Busy Beaver program
+        #Not accurate
+        'a0': ('b', '1', 'r'),
+        'a1': ('d', '0', 'l'),
+
+        'b0': ('c', '1', 'r'),
+        'b1': ('f', '0', 'r'),
+
+        'c0': ('c', '1', 'l'),
+        'c1': ('a', '1', 'l'),
+
+        'd0': ('e', '0', 'l'),
+        'd1': ('h', '1', 'r'),
+
+        'e0': ('f', '1', 'l'),
+        'e1': ('b', '0', 'r'),
+
+        'f0': ('c', '0', 'r'),
+        'f1': ('e', '0', 'r'),
     }
 ]
 
@@ -124,16 +180,15 @@ def usage():
     sys.exit(1)
 
 if __name__ == "__main__":
-    # if len(sys.argv[1:]) < 1:
-    #     usage()
-    #
-    # n = int(sys.argv[1])
-    #
-    # if n < 1 or n > 6:
-    #     print("n must be between 1 and 6 inclusive")
-    #     print()
-    #     usage()
-    #
-    # busy_beaver(n)
-    busy_beaver(5)
+    if len(sys.argv[1:]) < 1:
+        usage()
 
+    n = int(sys.argv[1])
+
+    if n < 1 or n > 6:
+        print("n must be between 1 and 6 inclusive")
+        print()
+        usage()
+    
+    busy_beaver(n)
+    #busy_beaver(5)
