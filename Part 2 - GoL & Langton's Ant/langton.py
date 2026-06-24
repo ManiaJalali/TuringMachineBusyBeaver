@@ -20,7 +20,12 @@ class LangtonsAnt:
     3. Ensure wrapping at the boundaries (toroidal grid).
     """
 
-    def __init__(self, N, ant_position, rules):
+    def __init__(self, N, ant_position, rules,direction='N'):
+        self.N=N
+        self.grid=np.zeros((N, N))
+        self.direction=direction
+        self.ant_position=ant_position
+        self.rules=rules
         """
         Initialize the Langton's Ant simulation.
         
@@ -30,8 +35,7 @@ class LangtonsAnt:
             rules (dict): Dictionary defining transition rules.
                           Format: {current_color: (next_color, turn_direction)}
         """
-        # Student TODO: Implement initialization
-        pass
+
 
     def get_states(self):
         """
@@ -40,8 +44,7 @@ class LangtonsAnt:
         Returns:
             np.ndarray: The NxN cellular grid.
         """
-        # Student TODO: Return grid state
-        pass
+        return self.grid
 
     def get_current_position(self):
         """
@@ -50,15 +53,39 @@ class LangtonsAnt:
         Returns:
             tuple: Current coordinates of the ant.
         """
-        # Student TODO: Return current position
-        pass
+        return self.ant_position
 
     def step(self):
         """
         Perform a single simulation step following the ruleset.
         """
-        # Student TODO: Implement the ant's movement and cell state updates
-        pass
+        color=self.grid[self.ant_position[0]][self.ant_position[1]]
+        next_color,turn=self.rules[color]
+        self.grid[self.ant_position[0]][self.ant_position[1]]=next_color
+        if self.direction == 'N':
+            if turn == 'R':
+                self.direction = 'E'
+            elif turn == 'L':
+                self.direction = 'W'
+
+        elif self.direction == 'E':
+            if turn == 'R':
+                self.direction = 'S'
+            elif turn == 'L':
+                self.direction = 'N'
+
+        elif self.direction == 'S':
+            if turn == 'R':
+                self.direction = 'W'
+            elif turn == 'L':
+                self.direction = 'E'
+
+        elif self.direction == 'W':
+            if turn == 'R':
+                self.direction = 'N'
+            elif turn == 'L':
+                self.direction = 'S'
+
 
     def update(self):
         """
