@@ -115,4 +115,6 @@ class TuringMachine:
         """
         # TODO: Loop over the steps yielded by run() up to step_limit and print the tape configuration.
         # E.g., print the state and the tape with the head highlighted in brackets like: left[symbol]right
-        pass
+        for (action, config) in islice(self.run(input_) , step_limit):
+            print(f'{config["state"]}: {''.join(reversed(config["left_hand_side"]))}[{str(config["symbol"])}]{''.join(config["right_hand_side"])}')
+            
