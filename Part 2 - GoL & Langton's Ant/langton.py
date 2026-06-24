@@ -22,7 +22,7 @@ class LangtonsAnt:
 
     def __init__(self, N, ant_position, rules,direction='N'):
         self.N=N
-        self.grid=np.zeros((N, N))
+        self.grid=np.zeros((N, N),dtype=int)
         self.direction=direction
         self.ant_position=ant_position
         self.rules=rules
@@ -65,26 +65,34 @@ class LangtonsAnt:
         if self.direction == 'N':
             if turn == 'R':
                 self.direction = 'E'
+                self.ant_position = (self.ant_position[0], (self.ant_position[1] + 1)%self.N)
             elif turn == 'L':
                 self.direction = 'W'
+                self.ant_position = (self.ant_position[0], (self.ant_position[1] - 1)%self.N)
 
         elif self.direction == 'E':
             if turn == 'R':
                 self.direction = 'S'
+                self.ant_position = ((self.ant_position[0] + 1)%self.N, self.ant_position[1])
             elif turn == 'L':
                 self.direction = 'N'
+                self.ant_position = ((self.ant_position[0] - 1)%self.N, self.ant_position[1])
 
         elif self.direction == 'S':
             if turn == 'R':
                 self.direction = 'W'
+                self.ant_position = (self.ant_position[0], (self.ant_position[1] - 1)%self.N)
             elif turn == 'L':
                 self.direction = 'E'
+                self.ant_position = (self.ant_position[0], (self.ant_position[1] + 1)%self.N)
 
         elif self.direction == 'W':
             if turn == 'R':
                 self.direction = 'N'
+                self.ant_position = ((self.ant_position[0] - 1)%self.N, self.ant_position[1])
             elif turn == 'L':
                 self.direction = 'S'
+                self.ant_position = ((self.ant_position[0] + 1)%self.N, self.ant_position[1])
 
 
     def update(self):
