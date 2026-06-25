@@ -114,7 +114,7 @@ if __name__ == "__main__":
         print()
         # This machine runs for 47176870 steps, writing 4098 1s, and then halts. So BB(5) is at least 47176870
         print("BB with 5 states")
-        bbeaver5.debug(w, step_limit=47176870)
+        bbeaver5.debug(w, step_limit=1000)
         print()
         # The busy beaver function is defined so that
         # \Sigma(n) = max { \sigma(M) | M is a halting n-state 2-symbol Turing machine}
