@@ -4,11 +4,21 @@ from test_turing_machine_example1 import print_states
 
 #create the Turing machine
 transitions = {
-        # TODO: Part II a) - Write your transition rules here as entries to a Python dictionary
-        # For example, the key will be a pair (state, character)
-        # The value will be the triple (next state, character to write, move head L or R)
-        # such as ('q0', '1'): ('q1', '0', 'R'), which says if current state is q0 and 1 encountered
-        # then transition to state q1, write a 0 and move head right.
+
+    ('q0','0'): ('q0','0','R'),
+    ('q0','1'): ('q0','1','R'),
+    ('q0',''): ('q1','','L'),
+
+    ('q1','1'): ('q2','','L'),
+    ('q1','0'): ('qr','0','R'),
+    ('q1',''): ('qr','','R'),
+
+    ('q2','1'): ('q2','1','L'),
+    ('q2','0'): ('q3','1','L'),
+
+    ('q3','1'): ('q3','1','L'),
+    ('q3','0'): ('qr','0','R'),
+    ('q3',''): ('qa','','R'),
 }
 
 if __name__ == "__main__":
@@ -31,3 +41,5 @@ if __name__ == "__main__":
     #     # outputs 1111111
     run("0111")
     # outputs 111
+    run('1001')
+    # reject
