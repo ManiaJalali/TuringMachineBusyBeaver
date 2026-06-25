@@ -1,6 +1,5 @@
 from turing_machine import TuringMachine
 
-
 transitions = {
         ('q0', '#'): ('saw_#', '#', 'R'),
         ('saw_#', '#'): ('saw_##', '#', 'R'),
@@ -30,10 +29,7 @@ def print_states(transition_mapping):
 
 if __name__ == "__main__":
     print_states(transitions)
-
-
     machine = TuringMachine(transitions)
-
     def run(input_):
         w = input_
         print("Input:",w)

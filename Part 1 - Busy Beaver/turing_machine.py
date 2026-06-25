@@ -47,6 +47,9 @@ class TuringMachine:
         self.blank_symbol = blank_symbol
 
     def run(self, input_):
+        if isinstance(input_, str):
+            input_ = list(input_)
+    
         left_hand_side = []
         state = self.start_state
 
@@ -101,9 +104,9 @@ class TuringMachine:
         return None
 
     def rejects(self, input_, **kwargs):
-        str = self.accepts(input_, **kwargs)
-        if str: return False
-        elif (str == False): return True
+        result = self.accepts(input_, **kwargs)
+        if result: return False
+        elif (result == False): return True
         else: return None
 
     def debug(self, input_, step_limit=100, colored=False):
