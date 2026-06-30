@@ -20,8 +20,61 @@ def parse_pattern(filepath):
     Returns:
         tuple: (width, height, list of (r, c) offsets of live cells)
     """
-    # Student TODO: Implement parser here
-    pass
+    
+    with open(filepath, 'r') as f:
+        lines = f.readlines()
+        if filepath.endswith('.cells'):
+            l = []
+            height = 0
+            width = 0
+
+            for line in lines:
+                if line.startswith('!'):
+                    continue
+                line = line.rstrip('\n')
+                width = max(width, len(line))
+                for i in range(len(line)):
+                    if line[i] == 'O':
+                        l.append((height,i))
+                if not line.startswith('!'):
+                    height += 1  
+
+            return (width, height, l)
+
+        elif filepath.endswith('.rle'):
+            l = []
+            data_str = ''
+            width, height = 0, 0
+            for line in lines:
+                if line.startswith('#'):
+                    continue
+                elif line.startswith('x'):
+                    parts = line.split(',')
+                    width = int(parts[0].split('=')[1].strip())
+                    height = int(parts[1].split('=')[1].strip())
+                else:
+                    data_str += line.strip()
+            row, col = 0, 0
+            count_str = ''
+            for ch in data_str:
+                if ch.isdigit():
+                    count_str += ch
+                else:
+                    count = int(count_str) if count_str else 1
+                    count_str = ''
+                    if ch == 'b':
+                        col += count
+                    elif ch == 'o':
+                        for i in range(count):
+                            l.append((row, col + i))
+                        col += count
+                    elif ch == '$':
+                        row += count
+                        col = 0
+                    elif ch == '!':
+                        break
+
+            return (width, height, l)
 
 
 class GameOfLife:
