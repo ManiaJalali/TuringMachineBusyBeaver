@@ -94,7 +94,7 @@ class TuringMachine:
                         symbol = self.blank_symbol
 
 
-    def accepts(self, input_, step_limit=100):
+    def accepts(self, input_, step_limit=500):
         for (action, config) in islice(self.run(input_) , step_limit):
             if (action == "Accept"):
                 return True
@@ -109,7 +109,7 @@ class TuringMachine:
         elif (result == False): return True
         else: return None
 
-    def debug(self, input_, step_limit=100, colored=False):
+    def debug(self, input_, step_limit=500, colored=False):
         """Print the execution configuration of the machine per transition for debugging.
 
         :param input_: the input string or list.
