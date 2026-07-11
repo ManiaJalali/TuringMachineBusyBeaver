@@ -121,23 +121,44 @@ class GameOfLife:
         pass
 
     def evolve(self):
-        """
-        Given the current states of the cells, apply the GoL rules:
-        - Any live cell with fewer than two live neighbors dies, as if by underpopulation.
-        - Any live cell with two or three live neighbors lives on to the next generation.
-        - Any live cell with more than three live neighbors dies, as if by overpopulation.
-        - Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
-        """
         if self.fastMode:
             self.grid = self.update_grid_fast(self.grid)
         else:
-            # TODO: [Part 1a - Core Rules]
-            # Remove the transition logic and implement the 4 standard GoL rules
-            # (Underpopulation, Survival, Overpopulation, Reproduction) by iterating 
-            # through the cells cell-by-cell. Handle self.finite wrapping appropriately.
-            
-            # Student TODO: Implement slow update cell-by-cell logic here
-            pass
+            next_grid = np.zeros_like(self.grid)
+            for r in range (self.rows):
+                for c in range (self.cols):
+                    aliveNeighbors = 0
+                    for a_row in range(-1,2):
+                        for a_column in range(-1,2):
+                            if a_row != 0 or a_column != 0:
+                                if self.finite == True:
+                                    neighbor_row = (r + a_row) 
+                                    neighbor_col = (c + a_column)
+
+                                    if 0 <= neighbor_col < self.cols and 0 <= neighbor_row < self.rows :
+                                        if self.grid[neighbor_row, neighbor_col] == self.aliveValue:
+                                            aliveNeighbors += 1
+                                else :
+                                    neighbor_row = (r + a_row) % self.rows
+                                    neighbor_col = (c + a_column) % self.cols
+                                    if self.grid[neighbor_row, neighbor_col] == self.aliveValue:
+                                        aliveNeighbors += 1
+                    if self.grid[r, c] == self.aliveValue:
+                        if aliveNeighbors < 2:
+                            next_grid[r, c] = self.deadValue
+
+                        elif aliveNeighbors == 2 or aliveNeighbors == 3:
+                            next_grid[r, c] = self.aliveValue
+                        
+                        elif aliveNeighbors > 3:
+                            next_grid[r, c] = self.deadValue
+                            
+                    else:
+                        if aliveNeighbors == 3:
+                            next_grid[r, c] = self.aliveValue
+                        else:
+                            next_grid[r, c] = self.deadValue
+            self.grid = next_grid
 
     def insertBlinker(self, index=(0, 0)):
         '''
