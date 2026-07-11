@@ -47,15 +47,12 @@ class TuringMachine:
         self.blank_symbol = blank_symbol
 
     def run(self, input_):
-        if isinstance(input_, str):
-            input_ = list(input_)
-    
         left_hand_side = []
         state = self.start_state
 
         if (input_):
             symbol = input_[0]
-            right_hand_side = input_[1:]
+            right_hand_side = list(input_[1:])
         else:
             symbol = self.blank_symbol
             right_hand_side = []
@@ -86,6 +83,8 @@ class TuringMachine:
                         symbol = left_hand_side.pop(0)
                     else:
                         symbol = self.blank_symbol
+                        logging.warning("crossed the left boundary of the singly-infinite tape")
+
                 else:
                     left_hand_side.insert(0,symbol)
                     if right_hand_side:
@@ -94,7 +93,7 @@ class TuringMachine:
                         symbol = self.blank_symbol
 
 
-    def accepts(self, input_, step_limit=500):
+    def accepts(self, input_, step_limit=100):
         for (action, config) in islice(self.run(input_) , step_limit):
             if (action == "Accept"):
                 return True
@@ -104,12 +103,12 @@ class TuringMachine:
         return None
 
     def rejects(self, input_, **kwargs):
-        result = self.accepts(input_, **kwargs)
-        if result: return False
-        elif (result == False): return True
+        str = self.accepts(input_, **kwargs)
+        if str: return False
+        elif (str == False): return True
         else: return None
 
-    def debug(self, input_, step_limit=500, colored=False):
+    def debug(self, input_, step_limit=100, colored=False):
         """Print the execution configuration of the machine per transition for debugging.
 
         :param input_: the input string or list.
