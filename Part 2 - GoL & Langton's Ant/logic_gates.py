@@ -30,8 +30,17 @@ class GliderLogicGates:
         Returns:
             GameOfLife: Initialized GameOfLife object.
         """
-        # Student TODO: Setup glider(s) on the grid
-        pass
+        life = GameOfLife(N=grid_size, finite=False, fastMode=True)
+    
+        if input_a_present:
+            life.insertFromFile("ak94 gun rev and_gate.cells", (31, 22))
+            #life.insertFromFile("ak94 gun2.cells", (45, 25))
+        
+        if input_b_present:
+            life.insertFromFile("ak94 gun and_gate.cells", (0,25))
+            #life.insertFromFile("ak94 gun rev2.cells", (0, 35))
+        
+        return life
 
     def setup_not_gate(self, grid_size=35, input_a_present=False):
         """
@@ -58,8 +67,22 @@ class GliderLogicGates:
         Returns:
             bool: True if output is active (e.g. glider/block formed in output region), False otherwise.
         """
-        # Student TODO: Evolve simulation and evaluate output
-        pass
+        life = self.setup_and_gate(
+            grid_size=200,
+        input_a_present=input_a_present,
+        input_b_present=input_b_present
+        )
+
+        steps = 100
+
+        for _ in range(steps):
+            life.evolve()
+
+        grid = life.getGrid()
+        output_region = grid[28:30, 25:27]
+        #print(output_region)
+
+        return np.sum(output_region) == 4
 
     def run_not_gate(self, input_a_present):
         """
