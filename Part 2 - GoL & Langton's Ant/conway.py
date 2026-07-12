@@ -118,7 +118,20 @@ class GameOfLife:
             np.ndarray: The next 2D grid of states.
         """
         # Student TODO: Implement fast 2D convolution method
-        pass
+        if self.finite == True:
+            mode_boundary = 'fill'
+        else:
+            mode_boundary = 'wrap'
+            
+        neighbors = signal.convolve2d(grid, self.neighborhood, mode='same', boundary=mode_boundary, fillvalue=0)
+        
+        next_grid = np.zeros_like(grid)
+        survival = (grid == self.aliveValue) & ((neighbors == 2) | (neighbors == 3))
+        
+        reproduction = (grid == self.deadValue) & (neighbors == 3)
+        next_grid[survival | reproduction] = self.aliveValue
+        
+        return next_grid
 
     def evolve(self):
         if self.fastMode:
