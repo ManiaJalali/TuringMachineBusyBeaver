@@ -59,10 +59,10 @@ class GliderLogicGates:
         finite=False,
         fastMode=True
         )
-        life.insertFromFile("ak94 gun and_gate.cells", (20, 20))
+        life.insertFromFile("ak94 gun and_gate.cells", (0, 29))
 
         if input_a_present:
-            life.insertFromFile("ak94 gun.cells", (0, 25))
+            life.insertFromFile("ak94 gun rev and_gate.cells", (50, 31))
 
         return life
 
