@@ -59,38 +59,68 @@ bbeaver3 = TuringMachine(
     start_state='a', accept_state='h', reject_state='r', blank_symbol='0'
 )
 bbeaver4 = TuringMachine(
-    {
-        ('a', '0'): ('b', '1', 'R'),
-        ('a', '1'): ('b', '1', 'L'),
+    { 
+        #('a', '0'): ('b', '1', 'R'),
+        #('a', '1'): ('b', '1', 'L'),
 
-        ('b', '0'): ('a', '1', 'L'),
-        ('b', '1'): ('c', '0', 'L'),
+        #('b', '0'): ('a', '1', 'L'),
+        #('b', '1'): ('c', '0', 'L'),
 
-        ('c', '0'): ('h', '1', 'R'),
-        ('c', '1'): ('d', '1', 'L'),
+        #('c', '0'): ('h', '1', 'R'),
+        #('c', '1'): ('d', '1', 'L'),
 
-        ('d', '0'): ('d', '1', 'R'),
-        ('d', '1'): ('a', '0', 'R'),
+        #('d', '0'): ('d', '1', 'R'),
+        #('d', '1'): ('a', '0', 'R'),
+     
+    ('a', '0'): ('b', '1', 'R'),
+    ('a', '1'): ('a', '1', 'L'),
+
+    ('b', '0'): ('c', '0', 'R'),
+    ('b', '1'): ('d', '0', 'R'),
+
+    ('c', '0'): ('c', '1', 'L'),
+    ('c', '1'): ('a', '0', 'L'),
+
+    ('d', '0'): ('h', '1', 'R'),
+    ('d', '1'): ('c', '0', 'R'),
+
 
     },
     start_state='a', accept_state='h', reject_state='r', blank_symbol='0'
 )
 bbeaver5 = TuringMachine(
     {
+        #('a', '0'): ('b', '1', 'R'),
+        #('a', '1'): ('c', '1', 'L'),
+
+        #('b', '0'): ('c', '1', 'R'),
+        #('b', '1'): ('b', '1', 'R'),
+
+        #('c', '0'): ('d', '1', 'R'),
+        #('c', '1'): ('e', '0', 'L'),
+
+        #('d', '0'): ('a', '1', 'L'),
+        #('d', '1'): ('d', '1', 'L'),
+
+        #('e', '0'): ('h', '1', 'R'),
+        #('e', '1'): ('a', '0', 'L'),
+        
+
         ('a', '0'): ('b', '1', 'R'),
-        ('a', '1'): ('c', '1', 'L'),
+        ('a', '1'): ('b', '1', 'L'),
 
-        ('b', '0'): ('c', '1', 'R'),
-        ('b', '1'): ('b', '1', 'R'),
+        ('b', '0'): ('a', '1', 'L'),
+        ('b', '1'): ('c', '0', 'L'),
 
-        ('c', '0'): ('d', '1', 'R'),
-        ('c', '1'): ('e', '0', 'L'),
+        ('c', '0'): ('e', '1', 'R'),
+        ('c', '1'): ('d', '1', 'L'),
 
-        ('d', '0'): ('a', '1', 'L'),
-        ('d', '1'): ('d', '1', 'L'),
+        ('d', '0'): ('d', '1', 'R'),
+        ('d', '1'): ('a', '0', 'R'),
 
         ('e', '0'): ('h', '1', 'R'),
-        ('e', '1'): ('a', '0', 'L'),
+        ('e', '1'): ('d', '1', 'R'),
+
 
     },
     start_state='a', accept_state='h', reject_state='r', blank_symbol='0'
@@ -106,15 +136,15 @@ if __name__ == "__main__":
         print()
         # 6
         print("BB with 3 states")
-        bbeaver3.debug(w, step_limit=1000)
+        #bbeaver3.debug(w, step_limit=1000)
         print()
         # 13
         print("BB with 4 states")
-        bbeaver4.debug(w, step_limit=1000)
+        #bbeaver4.debug(w, step_limit=1000)
         print()
         # This machine runs for 47176870 steps, writing 4098 1s, and then halts. So BB(5) is at least 47176870
         print("BB with 5 states")
-        bbeaver5.debug(w, step_limit=1000)
+        bbeaver5.debug(w, step_limit=100000000)
         print()
         # The busy beaver function is defined so that
         # \Sigma(n) = max { \sigma(M) | M is a halting n-state 2-symbol Turing machine}
