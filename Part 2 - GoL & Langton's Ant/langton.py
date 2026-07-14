@@ -25,7 +25,9 @@ class LangtonsAnt:
         self.grid=np.zeros((N, N),dtype=int)
         self.direction=direction
         self.ant_position=ant_position
-        self.rules=rules
+        if isinstance(rules, str):
+            rules = self.parse_ruleset(rules)
+        self.rules = rules
         """
         Initialize the Langton's Ant simulation.
         
@@ -36,7 +38,15 @@ class LangtonsAnt:
                           Format: {current_color: (next_color, turn_direction)}
         """
 
-
+    @staticmethod
+    def parse_ruleset(rule_str):
+        n = len(rule_str)
+        rules = {}
+        for color, turn in enumerate(rule_str):
+            next_color = (color + 1) % n
+            rules[color] = (next_color, turn.upper())
+        return rules
+    
     def get_states(self):
         """
         Returns the current state grid of the cells.
