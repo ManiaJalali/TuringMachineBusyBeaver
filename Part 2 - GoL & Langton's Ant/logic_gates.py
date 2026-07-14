@@ -110,13 +110,12 @@ class GliderLogicGates:
         input_a_present=input_a_present
         )
 
-        steps = 100
+        steps = 187
 
         for _ in range(steps):
             life.evolve()
 
         grid = life.getGrid()
 
-        output_region = grid[28:30, 25:27]
-
-        return np.sum(output_region) == 4
+        output_region = grid[59,0]
+        return np.sum(output_region) == 1
