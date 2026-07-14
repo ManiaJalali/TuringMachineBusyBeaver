@@ -93,7 +93,7 @@ class TuringMachine:
                         symbol = self.blank_symbol
 
 
-    def accepts(self, input_, step_limit=100):
+    def accepts(self, input_, step_limit=1000):
         for (action, config) in islice(self.run(input_) , step_limit):
             if (action == "Accept"):
                 return True
@@ -108,15 +108,23 @@ class TuringMachine:
         elif (str == False): return True
         else: return None
 
-    def debug(self, input_, step_limit=100, colored=False):
+    def debug(self, input_, step_limit=1000, colored=False):
         """Print the execution configuration of the machine per transition for debugging.
 
         :param input_: the input string or list.
         :param step_limit: the maximum number of steps to output.
         :param colored: True to output colored boundaries in terminal.
         """
-        # TODO: Loop over the steps yielded by run() up to step_limit and print the tape configuration.
-        # E.g., print the state and the tape with the head highlighted in brackets like: left[symbol]right
-        for (action, config) in islice(self.run(input_) , step_limit):
-            print(f'{config["state"]}: {''.join(reversed(config["left_hand_side"]))}[{str(config["symbol"])}]{''.join(config["right_hand_side"])}')
-            
+        for (action, config) in islice(self.run(input_), step_limit):
+            left = ''.join(reversed(config["left_hand_side"]))
+            right = ''.join(config["right_hand_side"])
+            symbol = str(config["symbol"])
+
+            if colored:
+                open_bracket = '\033[93m[\033[0m'
+                close_bracket = '\033[93m]\033[0m'
+            else:
+                open_bracket = '['
+                close_bracket = ']'
+
+            print(f'{config["state"]}: {left}{open_bracket}{symbol}{close_bracket}{right}')
