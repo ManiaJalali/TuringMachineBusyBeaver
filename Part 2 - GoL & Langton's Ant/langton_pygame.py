@@ -98,6 +98,7 @@ def run_visualizer(ant, cell_scale=6, fps=60, max_steps=None, title="Langton's A
 
 def parse_args():
     """Parse command-line options for the visualizer."""
+    
     parser = argparse.ArgumentParser(description="Langton's Ant pygame visualizer")
     parser.add_argument("--size", type=int, default=200, help="Grid size (NxN)")
     parser.add_argument("--row", type=int, default=None, help="Starting row")
@@ -109,6 +110,12 @@ def parse_args():
         "--multi-color",
         action="store_true",
         help="Use a simple four-color rule set instead of the default two-color rule set",
+    )
+    parser.add_argument(
+        "--rule",
+        type=str,
+        default=None,
+        help="رشته قانون چندرنگی مثل LLRR یا RLLR یا LRRRRRLLR",
     )
     return parser.parse_args()
 
